@@ -204,9 +204,55 @@ Receiving objects: 100% (3/3), done.
 
 ### 创建与合并分支
 
+一开始的时候，`master` 分支是一条线，Git用`master` 指向最新的提交，再用`HEAD` 指向`master`，就能确定当前分支，以及当前分支的提交点。
 
+当我们创建新的分支，例如`dev `时，Git新建了一个指针叫`dev`，指向`master `相同的提交，再把`HEAD`指向`dev`，就表示当前分支在`dev `上。
+
+从现在开始，对工作区的修改和提交就是针对`dev`分支了，比如新提交一次后，`dev `指针往前移动一步，而`master `指针不变。
+
+直接把`master `指向`dev `的当前提交，就完成了合并。
+
+合并完分支后，甚至可以删除`dev `分支。删除`dev `分支就是把`dev` 指针给删掉。
+
+**实战部分** 
+
+创建并切换到`dev` 分支：
+
+```bash
+$ git checkout -b dev
+Switched to a new branch 'dev'
+// 等价于
+$ git branch dev
+$ git checkout dev
+Switched to branch 'dev'
+// 等价于
+$ git switch -c dev
+```
+
+`git checkout <branch>` 也等价于`git switch <branch>` 
+
+查看当前分支：`git branch` 
+
+在其他分支上提交的内容在`master` 中不会显示（`master` 分支此刻的提交点没有变），要`git merge dev` 将`dev` 分支的成果合并到`master` 分支上。
+
+```bash
+$ git merge dev
+Updating d46f35e..b17d20e
+Fast-forward
+ readme.txt | 1 +
+ 1 file changed, 1 insertion(+)
+```
+
+合并后删除分支：
+
+```bash
+$ git branch -d dev
+Deleted branch dev (was b17d20e).
+```
 
 ### 解决冲突
+
+
 
 ### 分支管理策略
 
